@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors;
+  }
+  .btn-secondary {
+    @apply bg-white hover:bg-gray-50 text-primary-700 border border-primary-600 font-medium py-2 px-4 rounded-lg transition-colors;
+  }
+  .input-field {
+    @apply w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none;
+  }
+  .card {
+    @apply bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden;
+  }
+  /* Wealthsimple-inspired utilities */
+  .ws-hero {
+    @apply rounded-3xl p-10 text-center bg-gradient-to-r from-ws-50 to-white; 
+  }
+  .ws-cta {
+    @apply inline-block px-6 py-3 rounded-full font-bold text-white bg-ws-600 hover:bg-ws-700 shadow-md transition transform hover:-translate-y-0.5;
+  }
+  .badge-ws {
+    @apply inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold bg-ws-100 text-ws-800;
+  }
+  .panel-muted {
+    @apply bg-neutral-50 border border-neutral-100 rounded-2xl p-4;
+  }
+}
+
+:root {
+  --ws-accent: #ff9f3b;
+  --ws-primary: #67c376;
+  --ws-muted: #f3f4f6;
+}
+
+@layer utilities {
+  /* Simple entrance animations */
+  @keyframes ws-fade-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes ws-slide-up {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes underline-expand {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+  @keyframes skeleton-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .animate-fade-in {
+    animation: ws-fade-in 360ms cubic-bezier(.2,.9,.2,1) both;
+  }
+  .animate-slide-up {
+    animation: ws-slide-up 420ms cubic-bezier(.2,.9,.2,1) both;
+  }
+  .animate-skeleton {
+    animation: skeleton-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* Minimal card and button patterns with Wealthsimple aesthetic */
+  .card-minimal {
+    @apply bg-white border border-neutral-100 rounded-2xl p-6; 
+    box-shadow: 0 6px 18px rgba(16,24,40,0.04);
+    transition: transform 220ms ease, box-shadow 220ms ease;
+  }
+  .card-minimal:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 36px rgba(16,24,40,0.08);
+  }
+
+  .btn-minimal {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-lg font-semibold text-white;
+    background-color: #d4a017;
+    transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
+  }
+  .btn-minimal:hover {
+    background-color: #b8860b;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(212, 160, 23, 0.3);
+  }
+  .btn-minimal:active {
+    transform: scale(0.95);
+  }
+  .btn-minimal:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .btn-gold {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-full font-bold text-neutral-900;
+    background: linear-gradient(135deg, #ECB22E 0%, #f0c14b 100%);
+    transition: transform 180ms ease, box-shadow 180ms ease;
+  }
+  .btn-gold:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(236, 178, 46, 0.4);
+  }
+  .btn-gold:active {
+    transform: scale(0.95);
+  }
+
+  .input-minimal {
+    @apply w-full px-4 py-3 rounded-xl border border-neutral-200 bg-white focus:outline-none;
+    transition: box-shadow 160ms ease, border-color 160ms ease;
+  }
+  .input-minimal:focus {
+    box-shadow: 0 6px 18px rgba(16,24,40,0.04);
+    border-color: rgba(103,195,118,0.9);
+  }
+
+  /* Wealthsimple serif headings */
+  .heading-serif {
+    @apply font-serif font-bold tracking-tight;
+  }
+  .heading-lg {
+    @apply text-4xl md:text-5xl lg:text-6xl heading-serif;
+  }
+  .heading-md {
+    @apply text-3xl md:text-4xl heading-serif;
+  }
+  .heading-sm {
+    @apply text-2xl md:text-3xl heading-serif;
+  }
+
+  /* Link underline animation (expand from left) */
+  .link-underline {
+    @apply relative inline-block text-accent-600;
+  }
+  .link-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: currentColor;
+    transition: width 300ms ease;
+  }
+  .link-underline:hover::after {
+    width: 100%;
+  }
+
+  /* Skeleton loader placeholder */
+  .skeleton {
+    @apply bg-neutral-200 animate-skeleton rounded;
+  }
+  .skeleton-text {
+    @apply skeleton h-4 w-full mb-2;
+  }
+  .skeleton-avatar {
+    @apply skeleton h-12 w-12 rounded-full;
+  }
+
+  /* Focus ring utilities (WCAG compliance) */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-500 transition-all;
+  }
+}
